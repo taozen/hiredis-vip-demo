@@ -1,6 +1,6 @@
 ## Redis Cluster client demo
 
-`
+```
 	//
 	// 1) Create a redis-cluster context.
 	//
@@ -114,4 +114,4 @@
 	// 5) Clean exit.
 	//
     redisClusterFree(cc);
-`
+```
