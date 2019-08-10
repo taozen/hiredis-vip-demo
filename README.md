@@ -1,4 +1,4 @@
-## Redis Cluster client demo
+# Redis Cluster client demo
 
 ```
     //
@@ -114,4 +114,28 @@
     // 5) Clean exit.
     //
     redisClusterFree(cc);
+```
+
+# Sample Output
+
+```
+    $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+    $ make test
+    gcc -Wall -g -O2 test.c -o test-proc -L/usr/local/lib -lhiredis_vip
+    ./test-proc
+    Enter the password of the redis-server. Hit 'enter' to bypass.
+    Password: abc123
+    reply->str: value-1
+    reply->str: value-2
+    reply->str: value-3
+    reply->str: value-4
+    reply->str: value-5
+    reply->str: value-6
+    reply->str: value-7
+    reply->str: value-8
+    reply->str: value-9
+    reply->str: value-10
+    reply->str: value-1, exp=value-1
+    reply->str: value-123
+    reply->str: value-456
 ```
