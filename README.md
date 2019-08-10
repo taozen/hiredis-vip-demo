@@ -1,22 +1,22 @@
 ## Redis Cluster client demo
 
 ```
-	//
-	// 1) Create a redis-cluster context.
-	//
+    //
+    // 1) Create a redis-cluster context.
+    //
     redisClusterContext *cc = NULL;
     cc = redisClusterContextInit();
 
-	//
-	// 1.1) Specify a few nodes of the cluster.
+    //
+    // 1.1) Specify a few nodes of the cluster.
     //      No need to configure all cluster nodes.
     //      Providing a few samples is fine.
-	//
+    //
     redisClusterSetOptionAddNodes(cc, "127.0.0.1:7000");
 
-	//
-	// 1.2) Specify password as needed
-	//
+    //
+    // 1.2) Specify password as needed
+    //
     char password[128] = {0};
     get_password(password, sizeof(password));
 
@@ -25,18 +25,18 @@
         redisClusterSetOptionAuth(cc, password);
     }
 
-	//
-	// 1.3) Issue connection
-	//
+    //
+    // 1.3) Issue connection
+    //
     redisClusterConnect2(cc);
     if (cc == NULL || cc->err) {
         printf("Error: %s\n", cc == NULL ? "NULL" : cc->errstr);
         return -1;
     }
 
-	//
-	// 2) Test a few keys spreading across the cluster.
-	//
+    //
+    // 2) Test a few keys spreading across the cluster.
+    //
     char *keys[] = {
         "key-1", "key-2", "key-3", "key-4", "key-5",
         "key-6", "key-7", "key-8", "key-9", "key-10"
@@ -67,9 +67,9 @@
         freeReplyObject(reply);
     }
 
-	//
-	// 3) Test simple lua scripting.
-	//
+    //
+    // 3) Test simple lua scripting.
+    //
     const char *lua_cmd = "return redis.call('get',KEYS[1])..', exp='..ARGV[1]";
     redisReply *reply = redisClusterCommand(cc, "eval %s 1 %s %s", lua_cmd, keys[0], values[0]);
 
@@ -80,9 +80,9 @@
     printf("reply->str: %s\n", reply->str);
     freeReplyObject(reply);
 
-	//
-	// 4) Test pipelining.
-	//
+    //
+    // 4) Test pipelining.
+    //
     const char *pipelined_cmds[] = {
         "set pipelined_key value-123",
         "get pipelined_key",
@@ -110,8 +110,8 @@
     }
     redisClusterReset(cc);
 
-	//
-	// 5) Clean exit.
-	//
+    //
+    // 5) Clean exit.
+    //
     redisClusterFree(cc);
 ```
