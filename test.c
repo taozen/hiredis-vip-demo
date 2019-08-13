@@ -123,11 +123,11 @@ void test_pipeline(redisClusterContext *cc)
 
 redisClusterContext* create_cluster_context()
 {
-	redisClusterContext *cc = NULL;
-	cc = redisClusterContextInit();
+    redisClusterContext *cc = NULL;
+    cc = redisClusterContextInit();
 
     /* No need to configure all cluster nodes. To provide a few samples is fine.*/
-	redisClusterSetOptionAddNodes(cc, "127.0.0.1:7000");
+    redisClusterSetOptionAddNodes(cc, "127.0.0.1:7000");
 
     char password[128] = {0};
     get_password(password, sizeof(password));
@@ -137,12 +137,12 @@ redisClusterContext* create_cluster_context()
         redisClusterSetOptionAuth(cc, password);
     }
 
-	redisClusterConnect2(cc);
+    redisClusterConnect2(cc);
 
-	if (cc == NULL || cc->err) {
-		printf("Error: %s\n", cc == NULL ? "NULL" : cc->errstr);
-		exit(-1);
-	}
+    if (cc == NULL || cc->err) {
+        printf("Error: %s\n", cc == NULL ? "NULL" : cc->errstr);
+        exit(-1);
+    }
 
     return cc;
 }
